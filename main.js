@@ -61,14 +61,6 @@ function postNewNote (noteText){
     })
     .then(response=>response.json())
 }
-// function postNewTodo (todoText) {
-//     return fetch('http://localhost:3000/todos/', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ todo: todoText, done: false, created: moment().format() })
-//     })
-//       .then(response => response.json())
-//   }
 
 //This keeps breaking things due to not being able to iterate but I'm going to press on.  Other option is right below. 
 getAllNotes()
