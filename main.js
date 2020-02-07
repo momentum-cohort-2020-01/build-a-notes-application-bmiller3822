@@ -60,11 +60,11 @@ function postNewNote (noteText){
 
 getAllNotes().then(renderNotesList)
 
-function deleteThisNote (noteText){
-    return fetch('http://localhost:3000/notes/:.noteToDelete',{
+function deleteThisNote (noteId){
+    return fetch('http://localhost:3000/notes/' + noteId,{
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({note:noteText, done: false, created: moment().format()})
+        body: JSON.stringify({note:noteId, done: false, created: moment().format()})
     })
     .then(response=>response.json())
 }
@@ -75,7 +75,8 @@ function deleteNote(){
     q('#notes').addEventListener('click', event=>{
         if (event.target.matches('.delete')){
             event.target.parentElement.classList.add("noteToDelete")
-            deleteThisNote(event.target.parentElement)
+            let noteId = (event.target.parentElement.dataset.noteId)
+            deleteThisNote(noteId)
         }   
     }
     )
