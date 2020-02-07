@@ -1,3 +1,5 @@
+const moment = require("moment")
+
 // const moment = require("moment")
 //Do I need this?
 
@@ -51,13 +53,30 @@ q ("#new-note-form").addEventListener('submit', event=>{
 //     postNewTodo(todoText).then(renderNewTodo)
 //   })
 
-//This keeps breaking things due to not being able to iterate but I'm going to press on.  Other option is right below. 
-// getAllNotes()
-//     .then(notes=>createNotesHTML(notes))
-//     .then(html=>{
-//         const notesSection = document.querySelector('#notes')
-//         notesSection.innerHTML=html
+function postNewNote (noteText){
+    return fetch('http://localhost:3000/notes/',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({note:noteText, done: false, created: moment().format()})
+    })
+    .then(response=>response.json())
+}
+// function postNewTodo (todoText) {
+//     return fetch('http://localhost:3000/todos/', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ todo: todoText, done: false, created: moment().format() })
 //     })
+//       .then(response => response.json())
+//   }
+
+//This keeps breaking things due to not being able to iterate but I'm going to press on.  Other option is right below. 
+getAllNotes()
+    .then(notes=>createNotesHTML(notes))
+    .then(html=>{
+        const notesSection = document.querySelector('#notes')
+        notesSection.innerHTML=html
+    })
 
 // I'll add this back later when I have more things to give it to iterate. 
 // getAllNotes().then(renderNotesList)
