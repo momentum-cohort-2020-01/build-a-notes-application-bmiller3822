@@ -1,4 +1,5 @@
-const moment = require("moment")
+// const moment = require("moment")
+// Commenting this out again per my conversation with Rebecca at 9:50pm EST on Thursday evening.  Am I insane?
 
 // const moment = require("moment")
 //Do I need this?
@@ -15,6 +16,11 @@ function getAllNotes(){
 .then(notes=>console.log(notes))
 }
 
+function createNoteHTML(note){
+    return `<li data-todo-id="${note.id}">${note.note} <button class="delete">Delete</button></li>`
+}
+
+// This is breaking things due to not being iterable.  But why?
 function createNotesHTML(notes){
     let notesStr = '<ul id="notes-list">'
     for (const note of notes){
@@ -22,10 +28,6 @@ function createNotesHTML(notes){
     }
     notesStr += '</ul>'
     return notesStr
-}
-
-function createNoteHTML(note){
-    return `<li data-todo-id="${note.id}">${note.note} <button class="delete">Delete</button></li>`
 }
 
 function renderNotesList(notes) {
@@ -63,14 +65,14 @@ function postNewNote (noteText){
 }
 
 //This keeps breaking things due to not being able to iterate but I'm going to press on.  Other option is right below. 
-getAllNotes()
-    .then(notes=>createNotesHTML(notes))
-    .then(html=>{
-        const notesSection = document.querySelector('#notes')
-        notesSection.innerHTML=html
-    })
+// getAllNotes()
+//     .then(notes=>createNotesHTML(notes))
+//     .then(html=>{
+//         const notesSection = document.querySelector('#notes')
+//         notesSection.innerHTML=html
+//     })
 
 // I'll add this back later when I have more things to give it to iterate. 
-// getAllNotes().then(renderNotesList)
+getAllNotes().then(renderNotesList)
 
 console.log("Nothing broken!")
