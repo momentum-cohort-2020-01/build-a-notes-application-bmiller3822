@@ -1,9 +1,3 @@
-// const moment = require("moment")
-// Commenting this out again per my conversation with Rebecca at 9:50pm EST on Thursday evening.  Am I insane?
-
-// const moment = require("moment")
-//Do I need this?
-
 function q(selector){
     return document.querySelector(selector)
 }
@@ -13,14 +7,9 @@ function getAllNotes(){
     method: 'GET'
     })
 .then(response=>response.json())
-.then(notes=>console.log(notes))
 }
 
-function createNoteHTML(note){
-    return `<li data-todo-id="${note.id}">${note.note} <button class="delete">Delete</button></li>`
-}
-
-// This is breaking things due to not being iterable.  But why?
+// This WAS breaking things due to not being iterable.  But why?
 function createNotesHTML(notes){
     let notesStr = '<ul id="notes-list">'
     for (const note of notes){
@@ -29,6 +18,23 @@ function createNotesHTML(notes){
     notesStr += '</ul>'
     return notesStr
 }
+
+getAllNotes().then(createNotesHTML)
+
+function createNoteHTML(note){
+    return `<li data-note-id="${note.id}">${note.note} <button class="delete">Delete</button></li>`
+}
+
+function deleteNote(note){
+    q('.delete').addEventListener('click', event=>{
+        if (event.target.classtList.contains('.delete')){
+            console.log('delete ' + event.target.parentElement.dataset.noteID)
+        }
+    }
+    )
+}
+
+deleteNote()
 
 function renderNotesList(notes) {
     const notesHTML = createNotesHTML(notes)
@@ -64,6 +70,25 @@ function postNewNote (noteText){
     .then(response=>response.json())
 }
 
+getAllNotes().then(renderNotesList)
+
+// console.log(document.querySelectorAll(".delete"))
+
+
+
+console.log("Nothing broken!")
+
+//Example I'm currently playing with
+// print('delete ' + event.target.parentElement.dataset.todoId)
+
+// if(event.target.matches('.delete')){
+//     print(event.target)
+//     print(event.target.parentElement.dataset.todoId)     (Can magic it up if it has data-note-ID on the LI,)
+// }
+// })
+
+
+//======================Notes and other nonsense======================================================================
 //This keeps breaking things due to not being able to iterate but I'm going to press on.  Other option is right below. 
 // getAllNotes()
 //     .then(notes=>createNotesHTML(notes))
@@ -73,6 +98,10 @@ function postNewNote (noteText){
 //     })
 
 // I'll add this back later when I have more things to give it to iterate. 
-getAllNotes().then(renderNotesList)
 
-console.log("Nothing broken!")
+
+// const moment = require("moment")
+// Commenting this out again per my conversation with Rebecca at 9:50pm EST on Thursday evening.  Am I insane?
+
+// const moment = require("moment")
+//Do I need this?
