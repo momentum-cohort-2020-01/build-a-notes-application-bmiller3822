@@ -9,7 +9,6 @@ function getAllNotes(){
 .then(response=>response.json())
 }
 
-// This WAS breaking things due to not being iterable.  But why?
 function createNotesHTML(notes){
     let notesStr = '<ul id="notes-list">'
     for (const note of notes){
@@ -24,17 +23,6 @@ getAllNotes().then(createNotesHTML)
 function createNoteHTML(note){
     return `<li data-note-id="${note.id}">${note.note} <button class="delete">Delete</button></li>`
 }
-
-function deleteNote(note){
-    q('.delete').addEventListener('click', event=>{
-        if (event.target.classtList.contains('.delete')){
-            console.log('delete ' + event.target.parentElement.dataset.noteID)
-        }
-    }
-    )
-}
-
-deleteNote()
 
 function renderNotesList(notes) {
     const notesHTML = createNotesHTML(notes)
@@ -72,13 +60,35 @@ function postNewNote (noteText){
 
 getAllNotes().then(renderNotesList)
 
-// console.log(document.querySelectorAll(".delete"))
+function deleteThisNote (noteText){
+    return fetch('http://localhost:3000/notes/:.noteToDelete',{
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({note:noteText, done: false, created: moment().format()})
+    })
+    .then(response=>response.json())
+}
 
+// console.log(document.querySelector(".delete")) 
 
+function deleteNote(){
+    q('#notes').addEventListener('click', event=>{
+        if (event.target.matches('.delete')){
+            event.target.parentElement.classList.add("noteToDelete")
+            deleteThisNote(event.target.parentElement)
+        }   
+    }
+    )
+}
+
+deleteNote()
 
 console.log("Nothing broken!")
 
-//Example I'm currently playing with
+
+
+
+//Example I'm currently playing with:
 // print('delete ' + event.target.parentElement.dataset.todoId)
 
 // if(event.target.matches('.delete')){
