@@ -1,6 +1,7 @@
 let editTextBox = q("#note-text")
 let editInput = q("edit-text")
 var newInput = document.createElement("input")
+var newForm = document.createElement("form")
 
 function q(selector){
     return document.querySelector(selector)
@@ -92,13 +93,14 @@ function deleteNote(){
         if (event.target.matches('.delete')){
             event.target.parentElement.classList.add("noteToDelete")
             let noteId = (event.target.parentElement.dataset.noteId)
+            // console.log(event.target.parentElement.dataset)
             deleteThisNote(noteId)
         }   
     }
     )
 }
 
-function editThisNote (noteId){ //addElement??  <li data-note-id="${note.id}">${note.note}</li>
+function editThisNote (noteId, editedNote){ //addElement??  <li data-note-id="${note.id}">${note.note}</li>
     return fetch('http://localhost:3000/notes/' + noteId,{
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json'},
@@ -107,6 +109,8 @@ function editThisNote (noteId){ //addElement??  <li data-note-id="${note.id}">${
     .then(response=>response.json())
 }
 
+//Possible const declaration for the function?
+
 function editNote(){
     q('#notes').addEventListener('click', event=>{
         
@@ -114,18 +118,23 @@ function editNote(){
             event.preventDefault();
             event.target.parentElement.classList.add("noteToEdit")
             event.target.parentElement.value=""
-            let editedNote = event.target.appendChild(newInput)
-            editedNote.classList.add("editClass")
-            q(".editClass").addEventListener('click', event=>{
-                console.log(editedNote.value)
-                return editedNote.value
+                let newEditForm = event.target.parentElement.appendChild(newForm)
+                let editedNote = newEditForm.appendChild(newInput)
+                editedNote.parentElement.classList.add("editClass")
+                q(".editClass").addEventListener('submit', event=>{
+                    event.preventDefault();
+                let noteId = (event.target.parentElement.dataset.noteId)
+                editThisNote(noteId, editedNote) //OMG IT WORKED I AM ALL THAT IS MAN!!!!
             })          
         }   
-        let noteId = (event.target.parentElement.dataset.noteId)
-        editThisNote(noteId)
-    }
+    }, false
     )
 }
+
+//What if I create a second thing to pass into the function...Do I need a form for submit?  If so, how and when? 
+
+// const el = document.getElementById("outside");
+// el.addEventListener("click", modifyText, false)    <<<This has a function
 
 getAllNotes().then(createNotesHTML)
 getAllNotes().then(renderNotesList)
