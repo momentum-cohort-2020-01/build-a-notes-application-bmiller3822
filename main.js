@@ -93,14 +93,13 @@ function deleteNote(){
         if (event.target.matches('.delete')){
             event.target.parentElement.classList.add("noteToDelete")
             let noteId = (event.target.parentElement.dataset.noteId)
-            // console.log(event.target.parentElement.dataset)
             deleteThisNote(noteId)
         }   
     }
     )
 }
 
-function editThisNote (noteId, editedNote){ //addElement??  <li data-note-id="${note.id}">${note.note}</li>
+function editThisNote (noteId, editedNote){ 
     return fetch('http://localhost:3000/notes/' + noteId,{
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json'},
@@ -109,32 +108,24 @@ function editThisNote (noteId, editedNote){ //addElement??  <li data-note-id="${
     .then(response=>response.json())
 }
 
-//Possible const declaration for the function?
-
 function editNote(){
     q('#notes').addEventListener('click', event=>{
-        
         if (event.target.matches('.edit')){
             event.preventDefault();
             event.target.parentElement.classList.add("noteToEdit")
             event.target.parentElement.value=""
-                let newEditForm = event.target.parentElement.appendChild(newForm)
-                let editedNote = newEditForm.appendChild(newInput)
-                editedNote.parentElement.classList.add("editClass")
+            let newEditForm = event.target.parentElement.appendChild(newForm)
+            let editedNote = newEditForm.appendChild(newInput)
+            editedNote.parentElement.classList.add("editClass")
                 q(".editClass").addEventListener('submit', event=>{
                     event.preventDefault();
-                let noteId = (event.target.parentElement.dataset.noteId)
-                editThisNote(noteId, editedNote) //OMG IT WORKED I AM ALL THAT IS MAN!!!!
-            })          
+                    let noteId = (event.target.parentElement.dataset.noteId)
+                    editThisNote(noteId, editedNote) //OMG IT WORKED I AM ALL THAT IS MAN!!!!
+             })          
         }   
     }, false
     )
 }
-
-//What if I create a second thing to pass into the function...Do I need a form for submit?  If so, how and when? 
-
-// const el = document.getElementById("outside");
-// el.addEventListener("click", modifyText, false)    <<<This has a function
 
 getAllNotes().then(createNotesHTML)
 getAllNotes().then(renderNotesList)
@@ -143,36 +134,14 @@ editNote()
 
 console.log("Nothing broken!")
 
-// noteSubmit.addEventListener("submit", event => {
-//     event.preventDefault();
-//     const titleTextField = document.querySelector("#note-title");
-//     const noteTextField = document.querySelector("#note-text");
-//     const titleText = titleTextField.value;
-//     const noteText = noteTextField.value;
-//     titleText.value = "";
-//     noteTextField.value = "";
-//     postNewNote(titleText, noteText).then();
-//   });
-//   function postNewNote(titleText, noteText) {
-//     return fetch("http://localhost:3000/notes/", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         title: titleText,
-//         note: noteText,
-//         done: false,
-//         created: moment().format()
-//       })
-//     }).then(response => response.json());
-//   }
-
 //Things still to do:
-// - Edit the note
+
 // - Style the hell out of this
 
 
 
 //======================Notes and other nonsense======================================================================
+
 //This keeps breaking things due to not being able to iterate but I'm going to press on.  Other option is right below. 
 // getAllNotes()
 //     .then(notes=>createNotesHTML(notes))
