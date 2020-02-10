@@ -13,8 +13,8 @@ function getAllNotes(){
     })
 .then(response=>response.json())
 }
-
-function createNotesHTML(notes){
+//Data is right here and goes here
+function createNotesHTML(notes){ //The data we just grabbed is now called notes
     let notesStr = '<ul id="notes-list">'
     for (const note of notes){
         notesStr+=createNoteHTML(note)
@@ -30,9 +30,14 @@ function editNoteHTML(note){
     return notesStr
 }
 
+//Gonna try to break this. 
+// function createNoteHTML(note){
+//     return `<li class="title" data-node-id="${note.id}">${note.title}</li>   <li class ="note-text-style" data-note-id="${note.id}">${note.note} <button class="edit">Edit</button><button class="delete">Delete</button></li>`
+// }
+
 function createNoteHTML(note){
-    return `<li class="title" data-node-id="${note.id}">${note.title}</li>   <li data-note-id="${note.id}">${note.note} <button class="edit">Edit</button><button class="delete">Delete</button></li>`
-}
+    return `<div class = "note-box"><li class="title" data-node-id="${note.id}">${note.title}</li><br></br>   <li class ="note-text-style" data-note-id="${note.id}">${note.note}<br> <button class="edit">Edit</button><button class="delete">Delete</button></li></div>`
+} //This might have a <br> that breaks when...something happens. 
 
 function editNoteHTML(note){
     return `<li data-note-id="${note.id}">${note.note}</li>`

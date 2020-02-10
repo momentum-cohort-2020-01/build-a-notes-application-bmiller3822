@@ -15,20 +15,22 @@
     <h1>Your Notes</h1>
 
     <form id="new-note-form" class ="form">
-    <label for="note-text">Create New Note!</label>
-    <input type="text" id="note-title" placeholder="Note Title"required contentEditable="true">
-    <input type="text" id="note-text" placeholder="Note" required contentEditable="true">
-    <!-- <input type="edit-text" id="edit-text" placeholder="Note" required contentEditable="true"> -->
+    <label id ="create-new-note" for="note-text">Create New Note:</label>
+    <br>
+    <input type="text" id="note-title" placeholder="Note Title"required contentEditable="true" class = "note-title">
+    <br>
+    <input type="text" id="note-text" placeholder="Enter Note" required contentEditable="true" class = "note-text">
+    <br>
     <div>
-      <button type="submit">Add Note</button>
+      <button id = "submit-button" type="submit">Add Note</button>
     </div>
 
     </form>
 
-    
+    <hr>
 
     <section id="notes" class = "notes">
-
+    
     </section>
   </div>
 </body>

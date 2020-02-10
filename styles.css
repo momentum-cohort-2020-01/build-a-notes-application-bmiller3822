@@ -1,3 +1,93 @@
+* {
+    Box-sizing: border-box;
+    Margin: 0;
+    Padding: 0;
+    }
+
+#create-new-note{
+    margin-bottom: 5px;
+}
+    
+hr {
+    margin-bottom: 5px;
+}
+
 .title{
     margin-top: 10px;
+}
+
+#create-new-note{
+    margin-bottom: 5px;
+}
+
+body {
+    background-color: rgb(32	33	36)	;
+    color: aquamarine;
+}
+
+.title{
+    font-weight: bold;
+}
+
+li{
+    list-style-type: none;
+    /* display: inline-block; */
+    /* text-align: top; */
+    /* align-items: center; */
+    margin: 5px;
+}
+
+.note-text-style {
+    color: rgb(232,232,232)
+}
+
+#submit-button{
+    margin-top: 5px;
+}
+
+.note-box {
+    border: 2px rgb(232,232,232) solid;
+    border-radius: 2%;
+    margin: 5px;
+    /* display: flex; */
+    width: 20%;
+    /* display: inline-block; */
+    /* display: inline-block; */
+    /* flex-wrap: wrap;
+    justify-content: space-evenly; */
+    display:flex;
+    flex-wrap: wrap;
+    /* text-align: center; */
+    
+}
+
+.edit, .delete{
+    padding: 5px;
+    border-radius: 5%; 
+    margin: 5px;  
+}
+
+h1, #new-note-form {
+    margin: 10px; 
+}
+
+#submit-button{
+    padding: 2px;
+}
+
+.note-text-style{
+    /* height: 3rem;  */
+    /* width: 50%; */
+}
+
+.notes{
+    /* width: 400px; */
+    display:flex;
+    flex-wrap: wrap;
+}
+
+#note-text{
+    width: 40%;
+    height: 4rem;
+    margin-top: 5px;
 }
