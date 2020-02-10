@@ -13,8 +13,8 @@ function getAllNotes(){
     })
 .then(response=>response.json())
 }
-//Data is right here and goes here
-function createNotesHTML(notes){ //The data we just grabbed is now called notes
+
+function createNotesHTML(notes){ 
     let notesStr = '<ul id="notes-list">'
     for (const note of notes){
         notesStr+=createNoteHTML(note)
